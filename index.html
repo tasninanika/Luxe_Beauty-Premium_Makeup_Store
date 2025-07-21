@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxe Beauty - Premium Makeup Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              playfair: ["Playfair Display", "serif"],
+              poppins: ["Poppins", "sans-serif"],
+            },
+            colors: {
+              "soft-pink": "#FFE6F0",
+              lavender: "#E6E6FA",
+              "rose-gold": "#B76E79",
+              "dusty-rose": "#D8BFD8",
+              blush: "#FFD1DC",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .page-transition {
+        transition: all 0.5s ease-in-out;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.6s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .cart-item {
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .banner-overlay {
+        background: linear-gradient(
+          to right,
+          rgba(183, 110, 121, 0.7),
+          rgba(183, 110, 121, 0.3)
+        );
+      }
+
+      .banner-text {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .banner-button {
+        transition: all 0.3s ease;
+      }
+
+      .banner-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(183, 110, 121, 0.4);
+      }
+
+      .floating {
+        animation: floating 3s ease-in-out infinite;
+      }
+
+      @keyframes floating {
+        0% {
+          transform: translateY(0px);
+        }
+
+        50% {
+          transform: translateY(-10px);
+        }
+
+        100% {
+          transform: translateY(0px);
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="font-poppins bg-gradient-to-br from-soft-pink to-lavender min-h-screen"
+  >
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <h1 class="text-2xl font-playfair font-bold text-rose-gold">
+              Luxe Beauty
+            </h1>
+          </div>
+          <div class="hidden md:flex space-x-8">
+            <button
+              onclick="showPage('home')"
+              class="nav-btn text-gray-700 hover:text-rose-gold transition-colors"
+            >
+              Home
+            </button>
+            <button
+              onclick="showPage('products')"
+              class="nav-btn text-gray-700 hover:text-rose-gold transition-colors"
+            >
+              Products
+            </button>
+            <button
+              onclick="showPage('about')"
+              class="nav-btn text-gray-700 hover:text-rose-gold transition-colors"
+            >
+              About
+            </button>
+            <button
+              onclick="showPage('cart')"
+              class="nav-btn text-gray-700 hover:text-rose-gold transition-colors"
+            >
+              Cart
+              <span
+                id="cart-count"
+                class="bg-rose-gold text-white px-2 py-1 rounded-full text-xs"
+                >0</span
+              >
+            </button>
+          </div>
+          <div class="md:hidden">
+            <button onclick="toggleMobileMenu()" class="text-gray-700">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <button
+            onclick="showPage('home'); toggleMobileMenu()"
+            class="block px-3 py-2 text-gray-700 hover:text-rose-gold w-full text-left"
+          >
+            Home
+          </button>
+          <button
+            onclick="showPage('products'); toggleMobileMenu()"
+            class="block px-3 py-2 text-gray-700 hover:text-rose-gold w-full text-left"
+          >
+            Products
+          </button>
+          <button
+            onclick="showPage('about'); toggleMobileMenu()"
+            class="block px-3 py-2 text-gray-700 hover:text-rose-gold w-full text-left"
+          >
+            About
+          </button>
+          <button
+            onclick="showPage('cart'); toggleMobileMenu()"
+            class="block px-3 py-2 text-gray-700 hover:text-rose-gold w-full text-left"
+          >
+            Cart
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Home Page -->
+      <div id="home" class="page page-transition fade-in">
+        <!-- Hero Banner -->
+        <div class="relative rounded-xl overflow-hidden mb-12 shadow-2xl">
+          <img
+            src="images/banner.jpg"
+            alt="Makeup Banner"
+            class="w-full h-[500px] object-cover"
+          />
+          <div class="absolute inset-0 banner-overlay flex items-center">
+            <div class="text-center px-6 py-16">
+              <h2
+                class="text-5xl font-playfair font-bold text-white mb-4 banner-text"
+              >
+                Elevate Your Beauty
+              </h2>
+              <p class="text-xl text-white mb-8 banner-text max-w-2xl mx-auto">
+                Discover our premium collection of makeup products designed to
+                enhance your natural beauty and confidence.
+              </p>
+              <div class="flex justify-center space-x-4">
+                <button
+                  onclick="showPage('products')"
+                  class="banner-button bg-white hover:bg-rose-gold text-rose-gold hover:text-white font-semibold py-3 px-8 rounded-full transition-colors transform"
+                >
+                  Shop Collection
+                </button>
+                <button
+                  onclick="showPage('about')"
+                  class="banner-button bg-transparent hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-full transition-colors border-2 border-white"
+                >
+                  Our Story
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Categories -->
+        <div class="mb-16">
+          <h3
+            class="text-3xl font-playfair font-bold text-gray-800 mb-8 text-center"
+          >
+            Featured Categories
+          </h3>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src="https://i5.walmartimages.com/seo/Tivlon-Color-Changing-Foundation-Liquid-Base-Flawless-Coverage-Lightweight-SPF50-Multi-Color-1-05fl-oz_31e0062d-c80d-4713-9364-05f11e5a5f34.a94f30a71dce531793d45e6c51fa22ab.jpeg?odnHeight=264&odnWidth=264&odnBg=FFFFFF"
+                alt="Foundation"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Foundation & Base
+                </h3>
+                <p class="text-gray-600 mb-4">
+                  Perfect canvas for your makeup look
+                </p>
+                <button
+                  onclick="showPage('products')"
+                  class="bg-rose-gold hover:bg-rose-700 text-white font-semibold py-2 px-6 rounded-full transition-colors"
+                >
+                  Explore
+                </button>
+              </div>
+            </div>
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src="https://www.lorealparisusa.com/-/media/project/loreal/brand-sites/oap/americas/us/beauty-magazine/2025/feb/banner-cupids-bow-defining-makeup-desktop.jpg?cx=0.25&cy=0.31&cw=2000&ch=815&hash=C7585D08E5DC9450A127848E01FF3A21"
+                alt="Lipstick"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Lips</h3>
+                <p class="text-gray-600 mb-4">
+                  Statement colors for every mood
+                </p>
+                <button
+                  onclick="showPage('products')"
+                  class="bg-rose-gold hover:bg-rose-700 text-white font-semibold py-2 px-6 rounded-full transition-colors"
+                >
+                  Explore
+                </button>
+              </div>
+            </div>
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src="https://i0.wp.com/blog.organicharvest.in/wp-content/uploads/2024/08/1-8.png?fit=1000%2C500&ssl=1"
+                alt="Eyeshadow"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Eyes</h3>
+                <p class="text-gray-600 mb-4">Create mesmerizing eye looks</p>
+                <button
+                  onclick="showPage('products')"
+                  class="bg-rose-gold hover:bg-rose-700 text-white font-semibold py-2 px-6 rounded-full transition-colors"
+                >
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Best Sellers -->
+        <div class="mb-16">
+          <h3
+            class="text-3xl font-playfair font-bold text-gray-800 mb-8 text-center"
+          >
+            Best Sellers
+          </h3>
+          <div class="grid md:grid-cols-4 gap-6">
+            <div
+              class="product-card bg-white rounded-lg shadow-lg overflow-hidden"
+            >
+              <div class="relative">
+                <img
+                  src="https://www.ohsogo.com/cdn/shop/products/velvet_matte_lip_color_5.5g-brick_red_1.jpg?v=1695925396&width=1500"
+                  alt="Matte Lipstick"
+                  class="w-full h-48 object-cover"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-rose-gold text-white text-xs font-semibold px-2 py-1 rounded"
+                  >Best Seller</span
+                >
+              </div>
+              <div class="p-4">
+                <h4 class="font-semibold text-gray-800 mb-1">
+                  Velvet Matte Lipstick
+                </h4>
+                <p class="text-gray-600 text-sm mb-2">
+                  Long-lasting matte finish
+                </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-rose-gold font-semibold">$19.99</span>
+                  <button
+                    onclick="addToCart(1)"
+                    class="bg-rose-gold hover:bg-rose-700 text-white px-2 py-1 rounded-full text-xs transition-colors"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-card bg-white rounded-lg shadow-lg overflow-hidden"
+            >
+              <div class="relative">
+                <img
+                  src="https://shop.avon.my/product/image/large/1499216_1.jpg"
+                  alt="Foundation"
+                  class="w-full h-48 object-cover"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-rose-gold text-white text-xs font-semibold px-2 py-1 rounded"
+                  >Best Seller</span
+                >
+              </div>
+              <div class="p-4">
+                <h4 class="font-semibold text-gray-800 mb-1">
+                  Natural Finish Foundation
+                </h4>
+                <p class="text-gray-600 text-sm mb-2">
+                  Lightweight medium coverage
+                </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-rose-gold font-semibold">$34.99</span>
+                  <button
+                    onclick="addToCart(2)"
+                    class="bg-rose-gold hover:bg-rose-700 text-white px-2 py-1 rounded-full text-xs transition-colors"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-card bg-white rounded-lg shadow-lg overflow-hidden"
+            >
+              <div class="relative">
+                <img
+                  src="https://m.media-amazon.com/images/I/811zdIPHocL._UF894,1000_QL80_.jpg"
+                  alt="Eyeshadow Palette"
+                  class="w-full h-48 object-cover"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-rose-gold text-white text-xs font-semibold px-2 py-1 rounded"
+                  >Best Seller</span
+                >
+              </div>
+              <div class="p-4">
+                <h4 class="font-semibold text-gray-800 mb-1">
+                  Shimmer Eyeshadow Palette
+                </h4>
+                <p class="text-gray-600 text-sm mb-2">12 beautiful shades</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-rose-gold font-semibold">$29.99</span>
+                  <button
+                    onclick="addToCart(3)"
+                    class="bg-rose-gold hover:bg-rose-700 text-white px-2 py-1 rounded-full text-xs transition-colors"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-card bg-white rounded-lg shadow-lg overflow-hidden"
+            >
+              <div class="relative">
+                <img
+                  src="https://blogscdn.thehut.net/wp-content/uploads/sites/2/2018/08/23135801/lengthening-mascara_1200x672_acf_cropped.jpg"
+                  alt="Mascara"
+                  class="w-full h-48 object-cover"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-rose-gold text-white text-xs font-semibold px-2 py-1 rounded"
+                  >Best Seller</span
+                >
+              </div>
+              <div class="p-4">
+                <h4 class="font-semibold text-gray-800 mb-1">
+                  Lengthening Mascara
+                </h4>
+                <p class="text-gray-600 text-sm mb-2">
+                  Dramatic length & volume
+                </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-rose-gold font-semibold">$24.99</span>
+                  <button
+                    onclick="addToCart(4)"
+                    class="bg-rose-gold hover:bg-rose-700 text-white px-2 py-1 rounded-full text-xs transition-colors"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beauty Tips -->
+        <div class="mb-16">
+          <h3
+            class="text-3xl font-playfair font-bold text-gray-800 mb-8 text-center"
+          >
+            Beauty Tips
+          </h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div class="relative h-64">
+                <img
+                  src="https://i.ytimg.com/vi/IdU9U08Tbg0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDQV5g3au5axTHjtGTgV9gNMjw4hA"
+                  alt="Makeup Tips"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end"
+                >
+                  <div class="p-6 text-white">
+                    <h4 class="text-xl font-semibold mb-2">
+                      Perfect Foundation Application
+                    </h4>
+                    <p class="text-sm">
+                      Learn how to achieve a flawless base that lasts all day
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div class="relative h-64">
+                <img
+                  src="https://i.ytimg.com/vi/wXlNUmv7aro/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCOLDHkFc5TtH1cCdxeooQqIJO9Jg"
+                  alt="Skincare"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end"
+                >
+                  <div class="p-6 text-white">
+                    <h4 class="text-xl font-semibold mb-2">
+                      Skincare Before Makeup
+                    </h4>
+                    <p class="text-sm">
+                      The importance of proper skincare for flawless makeup
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="mb-12">
+          <h3
+            class="text-3xl font-playfair font-bold text-gray-800 mb-8 text-center"
+          >
+            What Our Customers Say
+          </h3>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <div class="flex items-center mb-4">
+                <img
+                  src="https://picsum.photos/seed/customer1/100/100.jpg"
+                  alt="Customer"
+                  class="w-12 h-12 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h4 class="font-semibold text-gray-800">Sarah Johnson</h4>
+                  <div class="flex text-rose-gold">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600">
+                "I absolutely love the velvet matte lipstick! It stays on all
+                day and the colors are perfect for any occasion."
+              </p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <div class="flex items-center mb-4">
+                <img
+                  src="https://picsum.photos/seed/customer2/100/100.jpg"
+                  alt="Customer"
+                  class="w-12 h-12 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h4 class="font-semibold text-gray-800">Emily Chen</h4>
+                  <div class="flex text-rose-gold">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600">
+                "The natural finish foundation is amazing! It gives me the
+                perfect coverage without feeling heavy on my skin."
+              </p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <div class="flex items-center mb-4">
+                <img
+                  src="https://picsum.photos/seed/customer3/100/100.jpg"
+                  alt="Customer"
+                  class="w-12 h-12 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h4 class="font-semibold text-gray-800">Jessica Williams</h4>
+                  <div class="flex text-rose-gold">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600">
+                "I've tried many mascaras, but this lengthening one is by far
+                the best! My lashes look amazing every day."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center mb-12">
+          <h3 class="text-3xl font-playfair font-bold text-gray-800 mb-4">
+            Ready to Transform Your Beauty?
+          </h3>
+          <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Join thousands of satisfied customers who have discovered the Luxe
+            Beauty difference. Start your beauty journey today!
+          </p>
+          <div class="flex justify-center space-x-4">
+            <button
+              onclick="showPage('products')"
+              class="bg-rose-gold hover:bg-rose-700 text-white font-semibold py-3 px-8 rounded-full transition-colors transform hover:scale-105"
+            >
+              Shop Now
+            </button>
+            <button
+              onclick="showPage('about')"
+              class="bg-transparent hover:bg-rose-gold text-rose-gold font-semibold py-3 px-8 rounded-full transition-colors border-2 border-rose-gold"
+            >
+              Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Page -->
+      <div id="products" class="page page-transition hidden">
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-playfair font-bold text-gray-800 mb-4">
+            Our Products
+          </h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Discover our curated collection of premium makeup products
+          </p>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Category</label
+              >
+              <select
+                id="category-filter"
+                onchange="filterProducts()"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-rose-gold focus:border-rose-gold"
+              >
+                <option value="all">All Categories</option>
+                <option value="foundation">Foundation</option>
+                <option value="lipstick">Lipstick</option>
+                <option value="eyeshadow">Eyeshadow</option>
+                <option value="mascara">Mascara</option>
+                <option value="blush">Blush</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Price Range</label
+              >
+              <select
+                id="price-filter"
+                onchange="filterProducts()"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-rose-gold focus:border-rose-gold"
+              >
+                <option value="all">All Prices</option>
+                <option value="0-20">$0 - $20</option>
+                <option value="20-50">$20 - $50</option>
+                <option value="50+">$50+</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Sort By</label
+              >
+              <select
+                id="sort-filter"
+                onchange="filterProducts()"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-rose-gold focus:border-rose-gold"
+              >
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+                <option value="name-desc">Name: Z to A</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div
+          id="products-grid"
+          class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-11"
+        >
+          <!-- Products will be populated here by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Cart Page -->
+      <div id="cart" class="page page-transition hidden">
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-playfair font-bold text-gray-800 mb-4">
+            Your Shopping Cart
+          </h2>
+          <p class="text-lg text-gray-600">
+            Review and manage your selected products
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <div id="cart-items" class="mb-6">
+            <!-- Cart items will be populated here -->
+          </div>
+
+          <div class="border-t pt-4">
+            <div
+              class="flex justify-between items-center text-lg font-semibold mb-4"
+            >
+              <span>Total:</span>
+              <span id="cart-total">$0.00</span>
+            </div>
+            <button
+              onclick="showPage('checkout')"
+              class="w-full bg-rose-gold hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            >
+              Proceed to Checkout
+            </button>
+            <button
+              onclick="clearCart()"
+              class="w-full mt-3 border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-2 px-6 rounded-lg transition-colors"
+            >
+              Clear Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout Page -->
+      <div id="checkout" class="page page-transition hidden">
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-playfair font-bold text-gray-800 mb-4">
+            Checkout
+          </h2>
+          <p class="text-lg text-gray-600">Complete your purchase</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Shipping Information
+            </h3>
+            <form id="checkout-form" class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-rose-gold focus:border-rose-gold"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  required
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-rose-gold focus:border-rose-gold"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Address</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-rose-gold focus:border-rose-gold"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >City</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-rose-gold focus:border-rose-gold"
+                />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >State</label
+                  >
+                  <input
+                    type="text"
+                    required
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-rose-gold focus:border-rose-gold"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Zip Code</label
+                  >
+                  <input
+                    type="text"
+                    required
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-rose-gold focus:border-rose-gold"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Order Summary
+            </h3>
+            <div id="checkout-items" class="mb-4">
+              <!-- Checkout items will be populated here -->
+            </div>
+            <div class="border-t pt-4">
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Subtotal:</span>
+                  <span id="checkout-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Shipping:</span>
+                  <span id="checkout-shipping">$5.99</span>
+                </div>
+                <div class="flex justify-between font-semibold text-lg">
+                  <span>Total:</span>
+                  <span id="checkout-total">$0.00</span>
+                </div>
+              </div>
+              <button
+                onclick="completeOrder()"
+                class="w-full mt-6 bg-rose-gold hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+              >
+                Complete Purchase
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Page -->
+      <div id="about" class="page page-transition hidden">
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-playfair font-bold text-gray-800 mb-4">
+            About Luxe Beauty
+          </h2>
+          <p class="text-lg text-gray-600">
+            Discover our story and commitment to beauty
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Story</h3>
+            <p class="text-gray-600 mb-4">
+              Luxe Beauty was founded with a passion for creating high-quality,
+              cruelty-free makeup products that empower women to feel confident
+              and beautiful.
+            </p>
+            <p class="text-gray-600 mb-4">
+              We believe that beauty should be accessible, ethical, and
+              sustainable. Our products are made with premium ingredients and
+              designed to enhance natural beauty.
+            </p>
+            <p class="text-gray-600">
+              Founded in 2020, we've grown from a small passion project to a
+              beloved beauty brand with customers worldwide.
+            </p>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+              Our Mission
+            </h3>
+            <p class="text-gray-600 mb-4">
+              To provide women with high-quality, affordable makeup products
+              that make them feel confident and beautiful.
+            </p>
+            <p class="text-gray-600 mb-4">We are committed to:</p>
+            <ul class="text-gray-600 space-y-2">
+              <li class="flex items-center">
+                <i class="fas fa-check text-rose-gold mr-2"></i> Using only the
+                finest ingredients
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-rose-gold mr-2"></i> Being
+                cruelty-free and vegan-friendly
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-rose-gold mr-2"></i> Providing
+                excellent customer service
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-rose-gold mr-2"></i> Promoting body
+                positivity and self-love
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center mb-12">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-6">Our Values</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-4">
+              <div
+                class="w-16 h-16 mx-auto bg-soft-pink rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-leaf text-rose-gold text-2xl"></i>
+              </div>
+              <h4 class="font-semibold text-gray-800 mb-2">Sustainability</h4>
+              <p class="text-gray-600">
+                Eco-friendly packaging and sustainable practices
+              </p>
+            </div>
+            <div class="p-4">
+              <div
+                class="w-16 h-16 mx-auto bg-soft-pink rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-heart text-rose-gold text-2xl"></i>
+              </div>
+              <h4 class="font-semibold text-gray-800 mb-2">Inclusivity</h4>
+              <p class="text-gray-600">Products for all skin tones and types</p>
+            </div>
+            <div class="p-4">
+              <div
+                class="w-16 h-16 mx-auto bg-soft-pink rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-gem text-rose-gold text-2xl"></i>
+              </div>
+              <h4 class="font-semibold text-gray-800 mb-2">Quality</h4>
+              <p class="text-gray-600">
+                Premium ingredients for exceptional results
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Contact Us</h3>
+          <p class="text-gray-600 mb-6">
+            Have questions or need assistance? We're here to help!
+          </p>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-4">
+              <div
+                class="w-12 h-12 mx-auto bg-soft-pink rounded-full flex items-center justify-center mb-3"
+              >
+                <i class="fas fa-envelope text-rose-gold"></i>
+              </div>
+              <p class="text-gray-600">support@luxebeauty.com</p>
+            </div>
+            <div class="p-4">
+              <div
+                class="w-12 h-12 mx-auto bg-soft-pink rounded-full flex items-center justify-center mb-3"
+              >
+                <i class="fas fa-phone text-rose-gold"></i>
+              </div>
+              <p class="text-gray-600">+1 (555) 123-4567</p>
+            </div>
+            <div class="p-4">
+              <div
+                class="w-12 h-12 mx-auto bg-soft-pink rounded-full flex items-center justify-center mb-3"
+              >
+                <i class="fas fa-map-marker-alt text-rose-gold"></i>
+              </div>
+              <p class="text-gray-600">123 Beauty Lane, NY 10001</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white/90 backdrop-blur-sm mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              Luxe Beauty
+            </h3>
+            <p class="text-gray-600">Premium makeup for every occasion</p>
+          </div>
+          <div>
+            <h4 class="text-md font-semibold text-gray-800 mb-4">
+              Quick Links
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <button
+                  onclick="showPage('home')"
+                  class="text-gray-600 hover:text-rose-gold"
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button
+                  onclick="showPage('products')"
+                  class="text-gray-600 hover:text-rose-gold"
+                >
+                  Products
+                </button>
+              </li>
+              <li>
+                <button
+                  onclick="showPage('about')"
+                  class="text-gray-600 hover:text-rose-gold"
+                >
+                  About
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-md font-semibold text-gray-800 mb-4">
+              Customer Service
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <button class="text-gray-600 hover:text-rose-gold">
+                  Contact Us
+                </button>
+              </li>
+              <li>
+                <button class="text-gray-600 hover:text-rose-gold">
+                  Shipping & Returns
+                </button>
+              </li>
+              <li>
+                <button class="text-gray-600 hover:text-rose-gold">FAQ</button>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-md font-semibold text-gray-800 mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-600 hover:text-rose-gold">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="text-gray-600 hover:text-rose-gold">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-gray-600 hover:text-rose-gold">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-600 hover:text-rose-gold">
+                <i class="fab fa-pinterest"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t mt-8 pt-8 text-center text-gray-600">
+          <p>&copy; 2025 Luxe Beauty. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div
+      id="success-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg p-8 max-w-md w-full">
+        <div class="text-center">
+          <svg
+            class="w-16 h-16 text-green-500 mx-auto mb-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            ></path>
+          </svg>
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+            Order Successful!
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Thank you for your purchase. Your order has been placed
+            successfully.
+          </p>
+          <button
+            onclick="closeSuccessModal()"
+            class="bg-rose-gold hover:bg-rose-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+          >
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Product data
+      const products = [
+        {
+          id: 1,
+          name: "Velvet Matte Lipstick",
+          price: 19.99,
+          category: "lipstick",
+          image:
+            "https://m.media-amazon.com/images/I/615i-YKxjFL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Long-lasting matte lipstick in beautiful shades",
+        },
+        {
+          id: 2,
+          name: "Natural Finish Foundation",
+          price: 34.99,
+          category: "foundation",
+          image:
+            "https://m.media-amazon.com/images/I/71-vdXXPKvL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Lightweight foundation with natural coverage",
+        },
+        {
+          id: 3,
+          name: "Shimmer Eyeshadow Palette",
+          price: 29.99,
+          category: "eyeshadow",
+          image:
+            "https://m.media-amazon.com/images/I/81Avvz-kzCL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "12 shades of beautiful shimmery eyeshadows",
+        },
+        {
+          id: 4,
+          name: "Lengthening Mascara",
+          price: 24.99,
+          category: "mascara",
+          image:
+            "https://m.media-amazon.com/images/I/81Ikrc9QchL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Creates dramatic length and volume",
+        },
+        {
+          id: 5,
+          name: "Cream Blush",
+          price: 18.99,
+          category: "blush",
+          image:
+            "https://m.media-amazon.com/images/I/61QE+rV1OSL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Natural-looking blush with buildable color",
+        },
+        {
+          id: 6,
+          name: "Liquid Lipstick",
+          price: 21.99,
+          category: "lipstick",
+          image:
+            "https://m.media-amazon.com/images/I/61YVyDv6rbL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Long-lasting liquid lipstick with shine",
+        },
+        {
+          id: 7,
+          name: "Full Coverage Foundation",
+          price: 39.99,
+          category: "foundation",
+          image:
+            "https://m.media-amazon.com/images/I/61-sCun4uhL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Heavy coverage foundation for flawless skin",
+        },
+        {
+          id: 8,
+          name: "Matte Eyeshadow Palette",
+          price: 32.99,
+          category: "eyeshadow",
+          image:
+            "https://m.media-amazon.com/images/I/61dVjYX+ooL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "10 shades of matte eyeshadows",
+        },
+        {
+          id: 9,
+          name: "Volumizing Mascara",
+          price: 22.99,
+          category: "mascara",
+          image:
+            "https://m.media-amazon.com/images/I/71blF4kAdvL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Creates dramatic volume and definition",
+        },
+        {
+          id: 10,
+          name: "Powder Blush",
+          price: 16.99,
+          category: "blush",
+          image:
+            "https://m.media-amazon.com/images/I/61Aq46FNeBL._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Natural-looking powder blush",
+        },
+        {
+          id: 11,
+          name: "Matte Lipstick",
+          price: 19.99,
+          category: "lipstick",
+          image:
+            "https://m.media-amazon.com/images/I/71lMuoTNT7L._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Long-lasting matte finish in classic shades",
+        },
+        {
+          id: 12,
+          name: "Tinted Moisturizer",
+          price: 28.99,
+          category: "foundation",
+          image:
+            "https://m.media-amazon.com/images/I/71Wd8Hpbk4L._AC_UL480_FMwebp_QL65_.jpg",
+          description: "Lightweight tinted moisturizer with SPF",
+        },
+      ];
+
+      // Shopping cart
+      let cart = [];
+
+      // Current page
+      let currentPage = "home";
+
+      // Initialize the website
+      document.addEventListener("DOMContentLoaded", function () {
+        showPage("home");
+        renderProducts();
+        updateCartCount();
+      });
+
+      // Page navigation
+      function showPage(pageName) {
+        // Hide all pages
+        document.querySelectorAll(".page").forEach((page) => {
+          page.classList.add("hidden");
+          page.classList.remove("fade-in");
+        });
+
+        // Show selected page
+        const page = document.getElementById(pageName);
+        page.classList.remove("hidden");
+
+        // Add fade-in animation
+        setTimeout(() => {
+          page.classList.add("fade-in");
+        }, 10);
+
+        currentPage = pageName;
+
+        // Update active nav button
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.classList.remove("text-rose-gold", "font-semibold");
+          btn.classList.add("text-gray-700");
+        });
+
+        const activeBtn = Array.from(
+          document.querySelectorAll(".nav-btn")
+        ).find((btn) => btn.textContent.toLowerCase().includes(pageName));
+        if (activeBtn) {
+          activeBtn.classList.remove("text-gray-700");
+          activeBtn.classList.add("text-rose-gold", "font-semibold");
+        }
+      }
+
+      // Mobile menu toggle
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        menu.classList.toggle("hidden");
+      }
+
+      // Product filtering
+      function filterProducts() {
+        const categoryFilter = document.getElementById("category-filter").value;
+        const priceFilter = document.getElementById("price-filter").value;
+        const sortFilter = document.getElementById("sort-filter").value;
+
+        let filteredProducts = [...products];
+
+        // Apply category filter
+        if (categoryFilter !== "all") {
+          filteredProducts = filteredProducts.filter(
+            (product) => product.category === categoryFilter
+          );
+        }
+
+        // Apply price filter
+        if (priceFilter !== "all") {
+          const [min, max] = priceFilter.split("-").map(Number);
+          if (max) {
+            filteredProducts = filteredProducts.filter(
+              (product) => product.price >= min && product.price <= max
+            );
+          } else {
+            filteredProducts = filteredProducts.filter(
+              (product) => product.price >= min
+            );
+          }
+        }
+
+        // Apply sorting
+        switch (sortFilter) {
+          case "price-asc":
+            filteredProducts.sort((a, b) => a.price - b.price);
+            break;
+          case "price-desc":
+            filteredProducts.sort((a, b) => b.price - a.price);
+            break;
+          case "name-asc":
+            filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+          case "name-desc":
+            filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+        }
+
+        renderProducts(filteredProducts);
+      }
+
+      // Render products
+      function renderProducts(productsToRender = products) {
+        const grid = document.getElementById("products-grid");
+        grid.innerHTML = "";
+
+        productsToRender.forEach((product) => {
+          const productCard = document.createElement("div");
+          productCard.className =
+            "product-card bg-white rounded-lg shadow-lg overflow-hidden";
+          productCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${
+            product.name
+          }" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 right-2 bg-rose-gold text-white text-xs font-semibold px-2 py-1 rounded">Best Seller</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">${
+                          product.name
+                        }</h4>
+                        <p class="text-gray-600 text-sm mb-2">${
+                          product.description
+                        }</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-rose-gold font-semibold">$${product.price.toFixed(
+                              2
+                            )}</span>
+                            <button onclick="addToCart(${
+                              product.id
+                            })" class="bg-rose-gold hover:bg-rose-700 text-white px-2 py-1 rounded-full text-xs transition-colors">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+          grid.appendChild(productCard);
+        });
+      }
+
+      // Add to cart
+      function addToCart(productId) {
+        const product = products.find((p) => p.id === productId);
+        if (!product) return;
+
+        const existingItem = cart.find((item) => item.id === productId);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            ...product,
+            quantity: 1,
+          });
+        }
+
+        updateCart();
+        updateCartCount();
+
+        // Show success message
+        const successMessage = document.createElement("div");
+        successMessage.className =
+          "fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg z-50 animate-slideIn";
+        successMessage.textContent = "Added to cart!";
+        document.body.appendChild(successMessage);
+
+        setTimeout(() => {
+          successMessage.remove();
+        }, 2000);
+      }
+
+      // Update cart
+      function updateCart() {
+        const cartItems = document.getElementById("cart-items");
+        const checkoutItems = document.getElementById("checkout-items");
+
+        // Update cart page
+        if (cartItems) {
+          cartItems.innerHTML = "";
+
+          if (cart.length === 0) {
+            cartItems.innerHTML =
+              '<p class="text-gray-500 text-center py-8">Your cart is empty</p>';
+          } else {
+            cart.forEach((item) => {
+              const cartItem = document.createElement("div");
+              cartItem.className =
+                "cart-item flex items-center justify-between p-4 border-b";
+              cartItem.innerHTML = `
+                            <div class="flex items-center space-x-4">
+                                <img src="${item.image}" alt="${
+                item.name
+              }" class="w-16 h-16 object-cover rounded-lg">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">${
+                                      item.name
+                                    }</h4>
+                                    <p class="text-gray-600 text-sm">$${item.price.toFixed(
+                                      2
+                                    )} × ${item.quantity}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQuantity(${item.id}, ${
+                item.quantity - 1
+              })" class="text-gray-500 hover:text-rose-gold transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                    </svg>
+                                </button>
+                                <span class="text-gray-700 w-8 text-center">${
+                                  item.quantity
+                                }</span>
+                                <button onclick="updateQuantity(${item.id}, ${
+                item.quantity + 1
+              })" class="text-gray-500 hover:text-rose-gold transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="removeFromCart(${
+                                  item.id
+                                })" class="text-red-500 hover:text-red-700 transition-colors ml-4">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        `;
+              cartItems.appendChild(cartItem);
+            });
+          }
+        }
+
+        // Update checkout page
+        if (checkoutItems) {
+          checkoutItems.innerHTML = "";
+
+          if (cart.length === 0) {
+            checkoutItems.innerHTML =
+              '<p class="text-gray-500 text-center py-4">Your cart is empty</p>';
+          } else {
+            cart.forEach((item) => {
+              const checkoutItem = document.createElement("div");
+              checkoutItem.className =
+                "flex justify-between items-center py-2 border-b";
+              checkoutItem.innerHTML = `
+                            <div class="flex items-center space-x-3">
+                                <img src="${item.image}" alt="${
+                item.name
+              }" class="w-12 h-12 object-cover rounded">
+                                <div>
+                                    <h5 class="font-medium text-gray-800">${
+                                      item.name
+                                    }</h5>
+                                    <p class="text-gray-600 text-sm">$${item.price.toFixed(
+                                      2
+                                    )} × ${item.quantity}</p>
+                                </div>
+                            </div>
+                            <span class="font-medium">$${(
+                              item.price * item.quantity
+                            ).toFixed(2)}</span>
+                        `;
+              checkoutItems.appendChild(checkoutItem);
+            });
+          }
+        }
+
+        // Update totals
+        const total = cart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+
+        if (document.getElementById("cart-total")) {
+          document.getElementById("cart-total").textContent = `$${total.toFixed(
+            2
+          )}`;
+        }
+
+        if (document.getElementById("checkout-subtotal")) {
+          document.getElementById(
+            "checkout-subtotal"
+          ).textContent = `$${total.toFixed(2)}`;
+          document.getElementById("checkout-total").textContent = `$${(
+            total + 5.99
+          ).toFixed(2)}`;
+        }
+      }
+
+      // Update quantity
+      function updateQuantity(productId, newQuantity) {
+        if (newQuantity <= 0) {
+          removeFromCart(productId);
+          return;
+        }
+
+        const item = cart.find((item) => item.id === productId);
+        if (item) {
+          item.quantity = newQuantity;
+          updateCart();
+        }
+      }
+
+      // Remove from cart
+      function removeFromCart(productId) {
+        cart = cart.filter((item) => item.id !== productId);
+        updateCart();
+        updateCartCount();
+      }
+
+      // Clear cart
+      function clearCart() {
+        cart = [];
+        updateCart();
+        updateCartCount();
+      }
+
+      // Update cart count
+      function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById("cart-count").textContent = count;
+      }
+
+      // Complete order
+      function completeOrder() {
+        if (cart.length === 0) {
+          alert("Your cart is empty!");
+          return;
+        }
+
+        // In a real application, you would send the order to a server
+        // For this demo, we'll just show a success message
+        document.getElementById("success-modal").classList.remove("hidden");
+        clearCart();
+      }
+
+      // Close success modal
+      function closeSuccessModal() {
+        document.getElementById("success-modal").classList.add("hidden");
+        showPage("home");
+      }
+
+      // Add slide-in animation for success messages
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `
+            <style>
+                @keyframes slideIn {
+                    from { opacity: 0; transform: translateX(-20px); }
+                    to { opacity: 1; transform: translateX(0); }
+                }
+            </style>
+        `
+      );
+    </script>
+  </body>
+</html>
