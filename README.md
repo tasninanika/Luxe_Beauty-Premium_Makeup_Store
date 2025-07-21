@@ -7,7 +7,7 @@ Welcome to **Luxe Beauty**, a sleek and fully responsive e-commerce website desi
 
 ## 📸 Preview
 
-![Home Banner](images/preview-banner.png)  
+![Home Banner](images/preview-banner.PNG)  
 Elegant banner, modern layout, and responsive design
 
 ---
